@@ -12,13 +12,13 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.example.exam.dao.UserDaoImpl;
 import com.example.exam.model.Question;
 import com.example.exam.model.Test;
 
-@Component(value = "userDetailService")
+@Service
 public class UserDetailsServiceImpl implements UserDetailsService{
 
 	@Autowired

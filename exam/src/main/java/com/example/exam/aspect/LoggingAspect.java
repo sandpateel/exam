@@ -2,9 +2,7 @@ package com.example.exam.aspect;
 
 import java.util.Arrays;
 
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
@@ -21,12 +19,10 @@ public class LoggingAspect {
 
     /**
      * Pointcut that matches all Spring beans in the application's main packages.
+     * 
+     * Excluding jwt package because logging methods in JwtRequestFilter gives NullPointerException
      */
-    @Pointcut("within(com.example.exam..*)" +
-            " || within(com.example.exam.service..*)" +
-            " || within(com.example.exam.dao..*)" +
-            " || within(com.example.exam.model..*)" +
-        " || within(com.example.exam.controller..*)")
+    @Pointcut("within(com.example.exam..*) && !within(com.example.exam.jwt..*)" )
     public void applicationPackagePointcut() {
     }
 
@@ -41,12 +37,16 @@ public class LoggingAspect {
      */
     @Around("applicationPackagePointcut()")
     public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable {    	
-        log.debug("\n\tEnter: {}.{}() with \n \t\targument[s] = {}", joinPoint.getSignature().getDeclaringTypeName(),
-                joinPoint.getSignature().getName(), Arrays.toString(joinPoint.getArgs()));
+        
+    	log.debug("\n\tEnter: {}.{}() with \n \t\targument[s] = {}", 
+        		joinPoint.getSignature().getDeclaringTypeName(),
+                joinPoint.getSignature().getName(), 
+                Arrays.toString(joinPoint.getArgs()));
         
         Object result = joinPoint.proceed();
 
-        log.debug("\n\tExit: {}.{}() with \n \t\tresult = {}", joinPoint.getSignature().getDeclaringTypeName(),
+        log.debug("\n\tExit: {}.{}() with \n \t\tresult = {}", 
+        		joinPoint.getSignature().getDeclaringTypeName(),
                 joinPoint.getSignature().getName(), result);
 
         return result;

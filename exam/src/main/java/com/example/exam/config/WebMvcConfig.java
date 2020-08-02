@@ -11,7 +11,7 @@ import org.springframework.web.servlet.view.JstlView;
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
    
-    @Override
+    
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("login");
         registry.addViewController("/login").setViewName("login");
@@ -28,7 +28,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
     }
 
 
-    @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/*.js/**").addResourceLocations("/ui/static/");
         registry.addResourceHandler("/*.css/**").addResourceLocations("/ui/static/");
