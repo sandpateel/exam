@@ -10,7 +10,7 @@ public class ExamController {
 
 	public String firstPage() {
 
-	return "Hello World";
+	return "Hello World!";
 
 	}
 }
