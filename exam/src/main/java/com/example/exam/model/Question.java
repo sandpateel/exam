@@ -9,47 +9,51 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 
 
 @Entity
+@Table(name="questions")
 public class Question {
 
 	@Id
 	@Column
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	@Column
+	private int qno;
+	
+	@Column
+	private String qtype;
+	@Column
+	private String qtype_value;
 
-	@Column(name = "DESCRIPTION", nullable = false, length = 500) 
-	private String description;
-		@Column
-	private String option1;
+	@Column(nullable = false, length = 2000) 
+	private String statement;
 	@Column
-	private String option2;
+	private String A;
 	@Column
-	private String option3;
+	private String B;
 	@Column
-	private String option4;
+	private String C;
 	@Column
-	private String correctOption;
+	private String D;
+	@Column
+	private String answer;
+	@Column
+	private String subject;
+	@Column
+	private String topic;
+	@Column
+	private String subtopic;
+	@Column
+	private String explanation;
 	
 	
 	@ManyToMany(mappedBy="questions", fetch = FetchType.LAZY)
 	private Set<Test> tests;
-
-
-	
-	
-	//getters and setters
-	
-	public Question(String description, String op1, String op2, String op3, String op4, String correctOp) {
-		this.description = description;
-		this.option1 = op1;
-		this.option2 = op2;
-		this.option3 = op3;
-		this.option4 = op4;
-		this.correctOption = correctOp;
-	}
 
 
 	public int getId() {
@@ -62,63 +66,133 @@ public class Question {
 	}
 
 
-	public String getDescription() {
-		return description;
+	public int getQno() {
+		return qno;
 	}
 
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setQno(int qno) {
+		this.qno = qno;
 	}
 
 
-	public String getOption1() {
-		return option1;
+	public String getQtype() {
+		return qtype;
 	}
 
 
-	public void setOption1(String option1) {
-		this.option1 = option1;
+	public void setQtype(String qtype) {
+		this.qtype = qtype;
 	}
 
 
-	public String getOption2() {
-		return option2;
+	public String getQtype_value() {
+		return qtype_value;
 	}
 
 
-	public void setOption2(String option2) {
-		this.option2 = option2;
+	public void setQtype_value(String qtype_value) {
+		this.qtype_value = qtype_value;
 	}
 
 
-	public String getOption3() {
-		return option3;
+	public String getStatement() {
+		return statement;
 	}
 
 
-	public void setOption3(String option3) {
-		this.option3 = option3;
+	public void setStatement(String statement) {
+		this.statement = statement;
 	}
 
 
-	public String getOption4() {
-		return option4;
+	public String getA() {
+		return A;
 	}
 
 
-	public void setOption4(String option4) {
-		this.option4 = option4;
+	public void setA(String a) {
+		A = a;
 	}
 
 
-	public String getCorrectOption() {
-		return correctOption;
+	public String getB() {
+		return B;
 	}
 
 
-	public void setCorrectOption(String correctOption) {
-		this.correctOption = correctOption;
+	public void setB(String b) {
+		B = b;
+	}
+
+
+	public String getC() {
+		return C;
+	}
+
+
+	public void setC(String c) {
+		C = c;
+	}
+
+
+	public String getD() {
+		return D;
+	}
+
+
+	public void setD(String d) {
+		D = d;
+	}
+
+
+	public String getAnswer() {
+		return answer;
+	}
+
+
+	public void setAnswer(String answer) {
+		this.answer = answer;
+	}
+
+
+	public String getSubject() {
+		return subject;
+	}
+
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+
+
+	public String getTopic() {
+		return topic;
+	}
+
+
+	public void setTopic(String topic) {
+		this.topic = topic;
+	}
+
+
+	public String getSubtopic() {
+		return subtopic;
+	}
+
+
+	public void setSubtopic(String subtopic) {
+		this.subtopic = subtopic;
+	}
+
+
+	public String getExplanation() {
+		return explanation;
+	}
+
+
+	public void setExplanation(String explanation) {
+		this.explanation = explanation;
 	}
 
 
@@ -130,7 +204,7 @@ public class Question {
 	public void setTests(Set<Test> tests) {
 		this.tests = tests;
 	}
-	
+
 	
 
 }

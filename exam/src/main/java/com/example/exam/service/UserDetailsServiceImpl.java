@@ -38,42 +38,6 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 		return user;
 	}
 
-
-
-	private static void populateSampleDB() {
-		Question q1 = new Question("Sample Description1", "op1", "op2", "op3", "op4", "op1" );
-		Question q2 = new Question("Sample Description2", "op1", "op2", "op3", "op4", "op1" );
-		Question q3 = new Question("Sample Description3", "op1", "op2", "op3", "op4", "op1" );
-		Question q4 = new Question("Sample Description4", "op1", "op2", "op3", "op4", "op1" );
-		Question q5 = new Question("Sample Description5", "op1", "op2", "op3", "op4", "op1" );
-		Question q6 = new Question("Sample Description6", "op1", "op2", "op3", "op4", "op1" );
-		HashSet<Question> questions = new HashSet<Question>();
-		questions.add(q1);
-		questions.add(q2);
-		questions.add(q3);
-		questions.add(q4);
-		questions.add(q5);
-		questions.add(q6);
-		
-		
-		Test test = new Test();
-		test.setName("Test 1");
-		test.setYear("2020");
-		test.setQuestions(questions);
-		
-		Test test2 = new Test();
-		test2.setName("Test 1");
-		test2.setYear("2020");
-		
-		
-		SessionFactory  sessionFactory = new Configuration().configure().buildSessionFactory();
-
-		Session session = sessionFactory.openSession();
-		session.save(test);
-		session.save(test2);
-		
-		 
-	}
 	
 
 }

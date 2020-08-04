@@ -8,6 +8,8 @@ import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -15,6 +17,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
+@EnableJpaRepositories(
+	    entityManagerFactoryRef = "entityManagerFactory",
+	    basePackages = {"com.example.exam.dao"},
+	    transactionManagerRef = "transactionManager" )
 public class HibernateConf {
  
 	/* Access properties file
@@ -33,8 +39,14 @@ public class HibernateConf {
 	@Value( "${spring.jpa.hibernate.dialect}" )
 	private String hbDialect;
 	
-    @Bean
-    public LocalSessionFactoryBean sessionFactory() {
+	//required by JPA
+	@Bean(name = "transactionManager")
+	public DataSourceTransactionManager getDataSourceTransactionManager() {
+	    return new DataSourceTransactionManager(dataSource());
+	}
+	
+	@Bean(name="entityManagerFactory") //JPA searches for this name
+	public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
         sessionFactory.setPackagesToScan("com.example.exam.model" );
@@ -46,7 +58,7 @@ public class HibernateConf {
     @Bean
     public DataSource dataSource() {
         BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setDriverClassName(jdbcDriver);
+//        dataSource.setDriverClassName(jdbcDriver);
         dataSource.setUrl(jdbcUrl);
         dataSource.setUsername(jdbcUsername);
         dataSource.setPassword(jdbcPassword);
@@ -65,7 +77,7 @@ public class HibernateConf {
     private final Properties hibernateProperties() {
         Properties hibernateProperties = new Properties();
         hibernateProperties.setProperty("hibernate.hbm2ddl.auto", hbDdlAuto);
-        hibernateProperties.setProperty("hibernate.dialect", hbDialect);
+//        hibernateProperties.setProperty("hibernate.dialect", hbDialect);
         hibernateProperties.setProperty("hibernate.show_sql", "true");
         hibernateProperties.setProperty("hibernate.format_sql", "true");
  

@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
+import com.example.exam.dao.QuestionRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 
 //@WebMvcTest(ExamController.class) // @WebMVCTest is to test only a controller, cant be used with @SpringBootTest which is for whole app test
@@ -31,13 +32,11 @@ public class ExamControllerTest {
 	@Autowired
     private TestRestTemplate template; 
 	
-//    @Autowired
-//    private MockMvc mockMvc;
  
  
 //    @WithMockUser(value = "john")
     @Test
-    public void unAuthenticatedAccess_shouldDenyWith403() throws Exception {
+    public void authenticatedAccess_shouldAllowWith200() throws Exception {
 
     	HttpHeaders authHeaders = new HttpHeaders();
         authHeaders.setContentType(MediaType.APPLICATION_JSON);
@@ -60,4 +59,6 @@ public class ExamControllerTest {
         
         assertEquals(HttpStatus.OK, response.getStatusCode());
     }
+    
+   
 }

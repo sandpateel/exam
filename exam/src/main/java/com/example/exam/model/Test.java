@@ -14,9 +14,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 
 @Entity
+@Table(name="tests")
 public class Test {
 
 	@Id
@@ -31,7 +33,7 @@ public class Test {
 
 	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	@JoinTable(
-	        name = "Test_Questions", 
+	        name = "test_questions", 
 	        joinColumns = { @JoinColumn(name = "test_id") }, 
 	        inverseJoinColumns = { @JoinColumn(name = "question_id") }
 	    )
