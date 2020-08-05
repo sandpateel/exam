@@ -1,6 +1,11 @@
 package com.example.exam.controller;
 
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -16,6 +21,7 @@ import com.example.exam.dao.QuestionRepository;
 import com.example.exam.jwt.JwtTokenUtil;
 import com.example.exam.model.JwtRequest;
 import com.example.exam.model.JwtResponse;
+import com.example.exam.model.Question;
 import com.example.exam.service.UserDetailsServiceImpl;
 
 @RestController
@@ -56,7 +62,10 @@ public class ExamController {
 
 	@RequestMapping({ "/hello" }) 
 	public String firstPage() { 
-		return "Question count: "+ questionRepo.count(); 
+        Pageable pageable = PageRequest.of(0, 5, Sort.by("statement"));
+
+		return "Question count: "
+		+  questionRepo.findAll(pageable).stream().map(Question::getQno).collect(Collectors.toList());
 	}
 	
 	
